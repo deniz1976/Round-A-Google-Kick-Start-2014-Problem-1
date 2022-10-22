@@ -136,8 +136,6 @@ int main() {
                 std::cout << i[j];
                 ctt++;
             }
-
-
         }
     }
     return 0;
