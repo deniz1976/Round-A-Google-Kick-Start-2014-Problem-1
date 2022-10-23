@@ -54,90 +54,183 @@ Large dataset (Test set 2 - Hidden)
 using namespace std;
 
 int main() {
-    int input;
+    int arr[3][3] = {{4, 2, 0},
+                     {2, 0, 2},
+                     {0, 4, 4}};
+
     std::string direction;
-    std::string directions[] = {"right,left,north,south"};
-    std::cout << "enter an positive integer A for board area AxA , A must be greater than 1." << std::endl;
-    std::cin >> input;
-    if (input < 1) {
-        std::cout << "A cant be less than 1, exiting system." << std::endl;
-        return 31;
-    }
+    std::cout << "For this test case, we have a array 3x3" << std::endl;
     std::cout << "enter a direction (right, left, north, south)" << std::endl;
     std::cin >> direction;
-    int counter = 0;
-    for (int i = 0; i < 4; i++) {
-        if (direction == directions[i]) {
 
-        } else {
-            counter++;
+    if (direction == "right") {
+        int i;
+        int j;
+        int list;
+        int r;
+        for (i = 0; i < std::size(arr); i++) {
+            list = i, r = std::size(arr) - 1;
+            for (j = std::size(arr) - 2; j >= 0; j--) {
+                if (arr[i][j] != 0) {
+                    if (arr[i][j + 1] == 0 || arr[i][j + 1] == arr[i][j]) {
+                        if (arr[list][r] == arr[i][j]) {
+                            arr[list][r] *= 2;
+                            arr[i][j] = 0;
+                        } else {
+                            if (arr[list][r] == 0) {
+                                arr[list][r] = arr[i][j];
+                                arr[i][j] = 0;
+                            } else {
+                                arr[list][--r] = arr[i][j];
+                                arr[i][j] = 0;
+                            }
+                        }
+                    } else r--;
+                }
+            }
+        }
+        for (auto &k: arr) {
+            int ctt = 0;
+            for (int l = 0; l < std::size(k); l++) {
+                if (ctt == 2) {
+                    std::cout << k[l] << std::endl;
+                } else {
+                    std::cout << k[l];
+                    ctt++;
+                }
+            }
         }
     }
-    if (counter == 4) {
+
+    else if (direction == "left") {
+        int i;
+        int j;
+        int list;
+        int r;
+
+        for (i = 0; i < std::size(arr); i++) {
+            list = i, r = 0;
+            for (j = 1; j < std::size(arr); j++) {
+                if (arr[i][j] != 0) {
+                    if (arr[i][j - 1] == 0 || arr[i][j - 1] == arr[i][j]) {
+                        if (arr[list][r] == arr[i][j]) {
+                            arr[list][r] *= 2;
+                            arr[i][j] = 0;
+                        } else {
+                            if (arr[list][r] == 0) {
+                                arr[list][r] = arr[i][j];
+                                arr[i][j] = 0;
+                            } else {
+                                arr[list][++r] = arr[i][j];
+                                arr[i][j] = 0;
+                            }
+                        }
+                    } else r++;
+                }
+            }
+        }
+        for (auto &k: arr) {
+            int ctt = 0;
+            for (int l = 0; l < std::size(k); l++) {
+                if (ctt == 2) {
+                    std::cout << k[l] << std::endl;
+                } else {
+                    std::cout << k[l];
+                    ctt++;
+                }
+            }
+        }
+
+    }
+
+    else if (direction == "south") {
+        int i;
+        int j;
+        int list;
+        int r;
+        for (i = 0; i < std::size(arr); i++) {
+            list = i, r = std::size(arr) - 1;
+            for (j = std::size(arr) - 2; j >= 0; j--) {
+                if (arr[j][i] != 0) {
+                    if (arr[j + 1][i] == 0 || arr[j + 1][i] == arr[j][i]) {
+                        if (arr[r][list] == arr[j][i]) {
+                            arr[r][list] *= 2;
+                            arr[j][i] = 0;
+                        } else {
+                            if (arr[r][list] == 0) {
+                                arr[r][list] = arr[j][i];
+                                arr[j][i] = 0;
+                            } else {
+                                arr[--r][list] = arr[j][i];
+                                arr[j][i] = 0;
+                            }
+                        }
+                    } else r--;
+                }
+            }
+        }
+        for (auto &k: arr) {
+            int ctt = 0;
+            for (int l = 0; l < std::size(k); l++) {
+                if (ctt == 2) {
+                    std::cout << k[l] << std::endl;
+                } else {
+                    std::cout << k[l];
+                    ctt++;
+                }
+            }
+        }
+    }
+
+    else if (direction == "north") {
+        int i;
+        int j;
+        int list;
+        int r;
+
+        for (i = 0; i < std::size(arr); i++) {
+            list = i, r = 0;
+            for (j = 1; j < std::size(arr); j++) {
+                if (arr[j][i] != 0) {
+                    if (arr[j - 1][i] == 0 || arr[j - 1 ][i] == arr[j][i]) {
+                        if (arr[r][list] == arr[j][i]) {
+                            arr[r][list] *= 2;
+                            arr[j][i] = 0;
+                        } else {
+                            if (arr[r][list] == 0) {
+                                arr[r][list] = arr[j][i];
+                                arr[j][i] = 0;
+                            } else {
+                                arr[++r][list] = arr[j][i];
+                                arr[j][i] = 0;
+                            }
+                        }
+                    } else r++;
+                }
+            }
+        }
+        for (auto &k: arr) {
+            int ctt = 0;
+            for (int l = 0; l < std::size(k); l++) {
+                if (ctt == 2) {
+                    std::cout << k[l] << std::endl;
+                } else {
+                    std::cout << k[l];
+                    ctt++;
+                }
+            }
+        }
+    }
+
+    else {
         std::cout << "there is no direction named " << direction << " ,exiting system." << std::endl;
         return 31;
     }
-    int arr[3][3] = {{2, 2, 2},  // 0 2 4
-                     {2, 0, 2},  // 0 0 4
-                     {0, 4, 4}}; // 0 0 8
 
-//    for (int i = 0; i < size(arr); i++) {
-//        for (int j = 0; j < size(arr); j++) {
-//
-//            if (counter == 2) {
-//                std::cout << arr[i][j] << std::endl;
-//                counter = 0;
-//
-//            } else {
-//                std::cout << arr[i][j];
-//                counter++;
-//            }
-//        }
-//    }
-
-    // 2 0 4
-    // 2 2 0
-    // 0 4 0
-
-    if (direction == "right") {
-        for (int i = 0; i < std::size(arr); i++) {
-            for (int j = 0; j < std::size(arr[i]); j++) {
-                if (arr[i][std::size(arr[i]) - j - 1] == 0) {
-                    continue;
-                } else if (j != std::size(arr[i])-1 && arr[i][std::size(arr[i]) - j - 1] == arr[i][std::size(arr[i]) - j]) {
-                    arr[i][std::size(arr[i]) - j] *= 2;
-                    arr[i][std::size(arr[i]) - j - 1] = 0;
-                    //j = 2
-                }
-                if (j != std::size(arr[i])-1 && arr[i][std::size(arr[i]) - j] == 0) {
-                    int ct = j;
-                    while (arr[i][std::size(arr[i]) - ct] != 0) {
-                        if (arr[i][std::size(arr[i]) - ct] == arr[i][std::size(arr[i]) - ct + 1]) {
-                            arr[i][std::size(arr[i]) - ct + 1] = arr[i][std::size(arr[i]) - ct];
-                            arr[i][std::size(arr[i]) - ct] = 0;
-                            ct++;
-                        } else {
-                            arr[i][std::size(arr[i]) - ct + 1] = arr[i][std::size(arr[i]) - ct];
-                            arr[i][std::size(arr[i]) - ct] = 0;
-                        }
-                    }
-
-                }
-            }
-
-        }
-    }
-    for (auto &i: arr) {
-        int ctt = 0;
-        for (int j = 0; j < std::size(i); j++) {
-            if (ctt == 2) {
-                std::cout << i[j] << std::endl;
-            } else {
-                std::cout << i[j];
-                ctt++;
-            }
-        }
-    }
     return 0;
 }
+
+
+
+
 
