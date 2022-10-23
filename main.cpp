@@ -54,23 +54,22 @@ Large dataset (Test set 2 - Hidden)
 using namespace std;
 
 int main() {
-    int arr[3][3] = {{4, 2, 0},
-                     {2, 0, 2},
-                     {0, 4, 4}};
+    int arr[3][3] = {{2, 2, 2,},
+                     {2, 0, 2,},
+                     {2, 4, 4,}};
 
     std::string direction;
-    std::cout << "For this test case, we have a array 3x3" << std::endl;
+    std::cout << "For this test case, we have an array 3x3" << std::endl;
     std::cout << "enter a direction (right, left, north, south)" << std::endl;
     std::cin >> direction;
 
     if (direction == "right") {
-        int i;
-        int j;
         int list;
         int r;
-        for (i = 0; i < std::size(arr); i++) {
+
+        for (int i = 0; i < std::size(arr); i++) {
             list = i, r = std::size(arr) - 1;
-            for (j = std::size(arr) - 2; j >= 0; j--) {
+            for (int j = std::size(arr) - 2; j >= 0; j--) {
                 if (arr[i][j] != 0) {
                     if (arr[i][j + 1] == 0 || arr[i][j + 1] == arr[i][j]) {
                         if (arr[list][r] == arr[i][j]) {
@@ -92,7 +91,7 @@ int main() {
         for (auto &k: arr) {
             int ctt = 0;
             for (int l = 0; l < std::size(k); l++) {
-                if (ctt == 2) {
+                if (ctt == std::size(k) - 1) {
                     std::cout << k[l] << std::endl;
                 } else {
                     std::cout << k[l];
@@ -100,17 +99,13 @@ int main() {
                 }
             }
         }
-    }
-
-    else if (direction == "left") {
-        int i;
-        int j;
+    } else if (direction == "left") {
         int list;
         int r;
 
-        for (i = 0; i < std::size(arr); i++) {
+        for (int i = 0; i < std::size(arr); i++) {
             list = i, r = 0;
-            for (j = 1; j < std::size(arr); j++) {
+            for (int j = 1; j < std::size(arr); j++) {
                 if (arr[i][j] != 0) {
                     if (arr[i][j - 1] == 0 || arr[i][j - 1] == arr[i][j]) {
                         if (arr[list][r] == arr[i][j]) {
@@ -132,7 +127,7 @@ int main() {
         for (auto &k: arr) {
             int ctt = 0;
             for (int l = 0; l < std::size(k); l++) {
-                if (ctt == 2) {
+                if (ctt == std::size(k) - 1) {
                     std::cout << k[l] << std::endl;
                 } else {
                     std::cout << k[l];
@@ -140,17 +135,13 @@ int main() {
                 }
             }
         }
-
-    }
-
-    else if (direction == "south") {
-        int i;
-        int j;
+    } else if (direction == "south") {
         int list;
         int r;
-        for (i = 0; i < std::size(arr); i++) {
+
+        for (int i = 0; i < std::size(arr); i++) {
             list = i, r = std::size(arr) - 1;
-            for (j = std::size(arr) - 2; j >= 0; j--) {
+            for (int j = std::size(arr) - 2; j >= 0; j--) {
                 if (arr[j][i] != 0) {
                     if (arr[j + 1][i] == 0 || arr[j + 1][i] == arr[j][i]) {
                         if (arr[r][list] == arr[j][i]) {
@@ -172,7 +163,7 @@ int main() {
         for (auto &k: arr) {
             int ctt = 0;
             for (int l = 0; l < std::size(k); l++) {
-                if (ctt == 2) {
+                if (ctt == std::size(k) - 1) {
                     std::cout << k[l] << std::endl;
                 } else {
                     std::cout << k[l];
@@ -180,19 +171,15 @@ int main() {
                 }
             }
         }
-    }
-
-    else if (direction == "north") {
-        int i;
-        int j;
+    } else if (direction == "north") {
         int list;
         int r;
 
-        for (i = 0; i < std::size(arr); i++) {
+        for (int i = 0; i < std::size(arr); i++) {
             list = i, r = 0;
-            for (j = 1; j < std::size(arr); j++) {
+            for (int j = 1; j < std::size(arr); j++) {
                 if (arr[j][i] != 0) {
-                    if (arr[j - 1][i] == 0 || arr[j - 1 ][i] == arr[j][i]) {
+                    if (arr[j - 1][i] == 0 || arr[j - 1][i] == arr[j][i]) {
                         if (arr[r][list] == arr[j][i]) {
                             arr[r][list] *= 2;
                             arr[j][i] = 0;
@@ -212,7 +199,7 @@ int main() {
         for (auto &k: arr) {
             int ctt = 0;
             for (int l = 0; l < std::size(k); l++) {
-                if (ctt == 2) {
+                if (ctt == std::size(k) - 1) {
                     std::cout << k[l] << std::endl;
                 } else {
                     std::cout << k[l];
@@ -220,9 +207,7 @@ int main() {
                 }
             }
         }
-    }
-
-    else {
+    } else {
         std::cout << "there is no direction named " << direction << " ,exiting system." << std::endl;
         return 31;
     }
