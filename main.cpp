@@ -54,15 +54,36 @@ Large dataset (Test set 2 - Hidden)
 using namespace std;
 
 int main() {
-    int arr[3][3] = {{2, 2, 2,},
-                     {2, 0, 2,},
-                     {2, 4, 4,}};
+    int arr[5][5] = {{2, 2, 4, 2, 2},
+                     {2, 0, 2, 2, 2},
+                     {2, 4, 4, 2, 2},
+                     {2, 2, 2, 2, 2},
+                     {2, 2, 2, 4, 0}};
 
     std::string direction;
-    std::cout << "For this test case, we have an array 3x3" << std::endl;
+    std::cout << "For this test case, we have an array " << size(arr) << "x" << size(arr[0]) << std::endl;
     std::cout << "enter a direction (right, left, north, south)" << std::endl;
     std::cin >> direction;
-
+//    for (int i = 0; i < size(arr); i++) {
+//        for (int j = 0; j < size(arr[0]); j++) {
+//            if (arr[i][j] != 0) {
+//                if (arr[i][j] % 2 != 0) {
+//                    arr[i][j] = 0;
+//                } else {
+//                    while (true) {
+//                        if (arr[i][j] == 2) {
+//                            break;
+//                        } else if (arr[i][j] % 2 == 0) {
+//                            arr[i][j] = arr[i][j] / 2;
+//                        } else {
+//                            arr[i][j] = 0;
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     if (direction == "right") {
         int list;
         int r;
@@ -214,6 +235,7 @@ int main() {
 
     return 0;
 }
+
 
 
 
