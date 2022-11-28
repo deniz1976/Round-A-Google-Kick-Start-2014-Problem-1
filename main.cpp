@@ -51,17 +51,17 @@ Large dataset (Test set 2 - Hidden)
 
 #include <iostream>
 
-using namespace std;
+
 
 int main() {
-    int arr[5][5] = {{2, 2, 4, 2, 2},
-                     {2, 0, 2, 2, 2},
-                     {2, 4, 4, 2, 2},
-                     {2, 2, 2, 2, 2},
-                     {2, 2, 2, 4, 0}};
+    int arr[4][4] = {{4, 4, 8, 2 },
+                     {2, 0, 4, 2 },
+                     {2, 2, 4, 8 },
+                     {2, 2, 4, 4 }
+                     };
 
     std::string direction;
-    std::cout << "For this test case, we have an array " << size(arr) << "x" << size(arr[0]) << std::endl;
+    std::cout << "For this test case, we have an array " << std::size(arr) << "x" << std::size(arr[0]) << std::endl;
     std::cout << "enter a direction (right, left, north, south)" << std::endl;
     std::cin >> direction;
 //    for (int i = 0; i < size(arr); i++) {
@@ -84,7 +84,7 @@ int main() {
 //            }
 //        }
 //    }
-    if (direction == "right") {
+    if (direction == "right" || direction == "r") {
         int list;
         int r;
 
@@ -117,10 +117,11 @@ int main() {
                 } else {
                     std::cout << k[l];
                     ctt++;
+
                 }
             }
         }
-    } else if (direction == "left") {
+    } else if (direction == "left" || direction == "l") {
         int list;
         int r;
 
@@ -156,7 +157,7 @@ int main() {
                 }
             }
         }
-    } else if (direction == "south") {
+    } else if (direction == "south" || direction == "down" || direction == "s" || direction == "d") {
         int list;
         int r;
 
@@ -192,7 +193,7 @@ int main() {
                 }
             }
         }
-    } else if (direction == "north") {
+    } else if (direction == "north" || direction == "up" || direction == "n" || direction == "u") {
         int list;
         int r;
 
