@@ -1,0 +1,3 @@
+C:/Users/Deniz/Desktop/Round-A-Google-Kick-Start-2014-Problem-1/build/CMakeFiles/super2048.dir
+C:/Users/Deniz/Desktop/Round-A-Google-Kick-Start-2014-Problem-1/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Deniz/Desktop/Round-A-Google-Kick-Start-2014-Problem-1/build/CMakeFiles/ZERO_CHECK.dir

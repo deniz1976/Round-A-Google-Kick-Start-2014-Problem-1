@@ -1,0 +1,10 @@
+^C:\USERS\DENIZ\DESKTOP\ROUND-A-GOOGLE-KICK-START-2014-PROBLEM-1\BUILD\CMAKEFILES\BE267FCAE8FC9F577B0C906460B72B00\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Deniz/Desktop/Round-A-Google-Kick-Start-2014-Problem-1 -BC:/Users/Deniz/Desktop/Round-A-Google-Kick-Start-2014-Problem-1/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Deniz/Desktop/Round-A-Google-Kick-Start-2014-Problem-1/build/super2048.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

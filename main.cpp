@@ -50,188 +50,134 @@ Large dataset (Test set 2 - Hidden)
 */
 
 #include <iostream>
+#include <vector>
+#include <string>
 
+class Game2048 {
+private:
+    int N;
+    std::vector<std::vector<int>> board;
 
+    void mergeTiles(std::vector<int>& line) {
+        int writePos = 0;
+        for (int readPos = 0; readPos < N; readPos++) {
+            if (line[readPos] != 0) {
+                line[writePos++] = line[readPos];
+            }
+        }
+        while (writePos < N) {
+            line[writePos++] = 0;
+        }
+
+        for (int i = 0; i < N-1; i++) {
+            if (line[i] != 0 && line[i] == line[i+1]) {
+                line[i] *= 2;
+                line[i+1] = 0;
+            }
+        }
+
+        writePos = 0;
+        std::vector<int> temp(N, 0);
+        for (int readPos = 0; readPos < N; readPos++) {
+            if (line[readPos] != 0) {
+                temp[writePos++] = line[readPos];
+            }
+        }
+        line = temp;
+    }
+
+    void moveLeft() {
+        for (int i = 0; i < N; i++) {
+            mergeTiles(board[i]);
+        }
+    }
+
+    void moveRight() {
+        for (int i = 0; i < N; i++) {
+            std::vector<int> row = board[i];
+            std::reverse(row.begin(), row.end());
+            mergeTiles(row);
+            std::reverse(row.begin(), row.end());
+            board[i] = row;
+        }
+    }
+
+    void moveUp() {
+        for (int j = 0; j < N; j++) {
+            std::vector<int> col(N);
+            for (int i = 0; i < N; i++) {
+                col[i] = board[i][j];
+            }
+            mergeTiles(col);
+            for (int i = 0; i < N; i++) {
+                board[i][j] = col[i];
+            }
+        }
+    }
+
+    void moveDown() {
+        for (int j = 0; j < N; j++) {
+            std::vector<int> col(N);
+            for (int i = 0; i < N; i++) {
+                col[i] = board[i][j];
+            }
+            std::reverse(col.begin(), col.end());
+            mergeTiles(col);
+            std::reverse(col.begin(), col.end());
+            for (int i = 0; i < N; i++) {
+                board[i][j] = col[i];
+            }
+        }
+    }
+
+public:
+    Game2048(int size) : N(size), board(size, std::vector<int>(size)) {}
+
+    void setBoard(const std::vector<std::vector<int>>& newBoard) {
+        board = newBoard;
+    }
+
+    void move(const std::string& direction) {
+        if (direction == "left") moveLeft();
+        else if (direction == "right") moveRight();
+        else if (direction == "up") moveUp();
+        else if (direction == "down") moveDown();
+    }
+
+    void printBoard() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                std::cout << board[i][j];
+                if (j < N-1) std::cout << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+};
 
 int main() {
-    int arr[4][4] = {{4, 4, 8, 2 },
-                     {2, 0, 4, 2 },
-                     {2, 2, 4, 8 },
-                     {2, 2, 4, 4 }
-                     };
+    int T;
+    std::cin >> T;
 
-    std::string direction;
-    std::cout << "For this test case, we have an array " << std::size(arr) << "x" << std::size(arr[0]) << std::endl;
-    std::cout << "enter a direction (right, left, north, south)" << std::endl;
-    std::cin >> direction;
-//    for (int i = 0; i < size(arr); i++) {
-//        for (int j = 0; j < size(arr[0]); j++) {
-//            if (arr[i][j] != 0) {
-//                if (arr[i][j] % 2 != 0) {
-//                    arr[i][j] = 0;
-//                } else {
-//                    while (true) {
-//                        if (arr[i][j] == 2) {
-//                            break;
-//                        } else if (arr[i][j] % 2 == 0) {
-//                            arr[i][j] = arr[i][j] / 2;
-//                        } else {
-//                            arr[i][j] = 0;
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-    if (direction == "right" || direction == "r") {
-        int list;
-        int r;
+    for (int caseNum = 1; caseNum <= T; caseNum++) {
+        int N;
+        std::string direction;
+        std::cin >> N >> direction;
 
-        for (int i = 0; i < std::size(arr); i++) {
-            list = i, r = std::size(arr) - 1;
-            for (int j = std::size(arr) - 2; j >= 0; j--) {
-                if (arr[i][j] != 0) {
-                    if (arr[i][j + 1] == 0 || arr[i][j + 1] == arr[i][j]) {
-                        if (arr[list][r] == arr[i][j]) {
-                            arr[list][r] *= 2;
-                            arr[i][j] = 0;
-                        } else {
-                            if (arr[list][r] == 0) {
-                                arr[list][r] = arr[i][j];
-                                arr[i][j] = 0;
-                            } else {
-                                arr[list][--r] = arr[i][j];
-                                arr[i][j] = 0;
-                            }
-                        }
-                    } else r--;
-                }
+        Game2048 game(N);
+        std::vector<std::vector<int>> board(N, std::vector<int>(N));
+        
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                std::cin >> board[i][j];
             }
         }
-        for (auto &k: arr) {
-            int ctt = 0;
-            for (int l = 0; l < std::size(k); l++) {
-                if (ctt == std::size(k) - 1) {
-                    std::cout << k[l] << std::endl;
-                } else {
-                    std::cout << k[l];
-                    ctt++;
 
-                }
-            }
-        }
-    } else if (direction == "left" || direction == "l") {
-        int list;
-        int r;
-
-        for (int i = 0; i < std::size(arr); i++) {
-            list = i, r = 0;
-            for (int j = 1; j < std::size(arr); j++) {
-                if (arr[i][j] != 0) {
-                    if (arr[i][j - 1] == 0 || arr[i][j - 1] == arr[i][j]) {
-                        if (arr[list][r] == arr[i][j]) {
-                            arr[list][r] *= 2;
-                            arr[i][j] = 0;
-                        } else {
-                            if (arr[list][r] == 0) {
-                                arr[list][r] = arr[i][j];
-                                arr[i][j] = 0;
-                            } else {
-                                arr[list][++r] = arr[i][j];
-                                arr[i][j] = 0;
-                            }
-                        }
-                    } else r++;
-                }
-            }
-        }
-        for (auto &k: arr) {
-            int ctt = 0;
-            for (int l = 0; l < std::size(k); l++) {
-                if (ctt == std::size(k) - 1) {
-                    std::cout << k[l] << std::endl;
-                } else {
-                    std::cout << k[l];
-                    ctt++;
-                }
-            }
-        }
-    } else if (direction == "south" || direction == "down" || direction == "s" || direction == "d") {
-        int list;
-        int r;
-
-        for (int i = 0; i < std::size(arr); i++) {
-            list = i, r = std::size(arr) - 1;
-            for (int j = std::size(arr) - 2; j >= 0; j--) {
-                if (arr[j][i] != 0) {
-                    if (arr[j + 1][i] == 0 || arr[j + 1][i] == arr[j][i]) {
-                        if (arr[r][list] == arr[j][i]) {
-                            arr[r][list] *= 2;
-                            arr[j][i] = 0;
-                        } else {
-                            if (arr[r][list] == 0) {
-                                arr[r][list] = arr[j][i];
-                                arr[j][i] = 0;
-                            } else {
-                                arr[--r][list] = arr[j][i];
-                                arr[j][i] = 0;
-                            }
-                        }
-                    } else r--;
-                }
-            }
-        }
-        for (auto &k: arr) {
-            int ctt = 0;
-            for (int l = 0; l < std::size(k); l++) {
-                if (ctt == std::size(k) - 1) {
-                    std::cout << k[l] << std::endl;
-                } else {
-                    std::cout << k[l];
-                    ctt++;
-                }
-            }
-        }
-    } else if (direction == "north" || direction == "up" || direction == "n" || direction == "u") {
-        int list;
-        int r;
-
-        for (int i = 0; i < std::size(arr); i++) {
-            list = i, r = 0;
-            for (int j = 1; j < std::size(arr); j++) {
-                if (arr[j][i] != 0) {
-                    if (arr[j - 1][i] == 0 || arr[j - 1][i] == arr[j][i]) {
-                        if (arr[r][list] == arr[j][i]) {
-                            arr[r][list] *= 2;
-                            arr[j][i] = 0;
-                        } else {
-                            if (arr[r][list] == 0) {
-                                arr[r][list] = arr[j][i];
-                                arr[j][i] = 0;
-                            } else {
-                                arr[++r][list] = arr[j][i];
-                                arr[j][i] = 0;
-                            }
-                        }
-                    } else r++;
-                }
-            }
-        }
-        for (auto &k: arr) {
-            int ctt = 0;
-            for (int l = 0; l < std::size(k); l++) {
-                if (ctt == std::size(k) - 1) {
-                    std::cout << k[l] << std::endl;
-                } else {
-                    std::cout << k[l];
-                    ctt++;
-                }
-            }
-        }
-    } else {
-        std::cout << "there is no direction named " << direction << " ,exiting system." << std::endl;
-        return 31;
+        game.setBoard(board);
+        
+        std::cout << "Case #" << caseNum << ":" << std::endl;
+        game.move(direction);
+        game.printBoard();
     }
 
     return 0;
